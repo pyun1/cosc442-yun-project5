@@ -381,11 +381,33 @@ public class WMethod{
      Vector <String> tests=generateTests(transitionCover, w); // Generate tests.
      Utilities.printAllTestCases(tests); // Print tests.
      // Run Generated Test Cases against Utilities.runFSM()
-     Enumeration<String> e = tests.elements();
+   /*  Enumeration<String> e = tests.elements();		For some reason iterating using this method returns an error at test case 173
+     int i = 0;
      while (e.hasMoreElements()) {
-    	 Utilities.runFSM(FSM, 1, e.nextElement().replaceAll(".(?=.)", "$0 "), " ");
-     }
-     
+    	 System.out.println("@Test");
+    	 System.out.println("public void testCase" + i + " () {");
+    	 if (Utilities.runFSM(FSM, 1, e.nextElement().replaceAll(".(?=.)", "$0 "), " ")) {
+    		 System.out.println("	assertTrue(JamesBond.bondRegex(\"" + e.nextElement().replaceAll(".(?=.)", "$0 ") + "\"));");
+    	 } else {
+    		 System.out.println("	assertFalse(JamesBond.bondRegex(\"" + e.nextElement().replaceAll(".(?=.)", "$0 ") + "\"));");
+    	 }
+    	 System.out.println("}");
+    	 i++;
+     }*/
+     int i = 0;
+     for (String s : tests) {
+ 		System.out.println("@Test");
+		System.out.println("public void testCase" + i + "(){");
+		if(Utilities.runFSM(FSM, 1, s.replace("", " ").trim(), " "))
+			System.out.println("	assertTrue(JamesBond.bondRegex(\"" + s +"\"));");
+		else
+			System.out.println("	assertFalse(JamesBond.bondRegex(\"" + s +"\"));");
+			
+		System.out.println("}");
+		
+		
+		i++;
+	 }
    }// End of main()
    
 }//End of class WMethod
